@@ -2,7 +2,6 @@ This is the repository for [this blog post](https://rx-36.life/post/make-a-sideb
 
 [3.webm](https://user-images.githubusercontent.com/85185883/176752529-804e6d9f-0a3d-47b2-8b44-9e353acd87ae.webm)
 
-https://user-images.githubusercontent.com/85185883/173353731-92c994d7-77c9-4356-89c8-6a58fb70876c.mp4
 
 
 Sample code for a sidebar navigation built entirely with CSS gridlayout that can be used with Django's default template engine.
