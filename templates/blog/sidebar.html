@@ -1,0 +1,42 @@
+{% if request.user_agent.is_pc %}
+    <section id="sidenav" class="sidenav" :class="[open ? 'open':'', close ? '':'close']">
+{% endif %}
+
+{% if request.user_agent.is_mobile and 'iPad' not in request.user_agent.device %}
+    <section id="sidenav" class="sidenav" :class="[open ? 'open':'']">
+            <div
+                class="sidenav__button"
+                @click="
+                $dispatch('toggle');
+                header_text = !header_text;
+            "
+            >CLOSE</div>
+{% endif %}
+
+{% if request.user_agent.is_tablet %}
+    <section id="sidenav" class="sidenav" :class="[close ? 'close':'']" >
+{% endif %}
+
+        <div class="sidenav__contents">
+            <div class="sidenav__title"><a class="sidebar__link" href="{% url 'blog:post_list' %}">SIDE BAR</a></div>
+            <div class="sidenav__menu">
+                <ul class="sidenav__items">
+                        <li class="sidenav__item">item</li>
+                </ul>
+            </div>
+        </div>
+
+    </section>
+
+<!-- add following code -->
+{% if request.user_agent.is_pc %}
+    <div id="dummy" class="dummy" :class="[open ? 'open':'']"></div>
+{% endif %}
+
+{% if request.user_agent.is_mobile and 'iPad' not in request.user_agent.device %}
+    <div id="swipe" class="swipe" :class="[open ? 'open':'']"></div>
+{% endif %}
+
+{% if request.user_agent.is_tablet %}
+    <div id="swipe" class="swipe" :class="[open ? 'open':'']"></div>
+{% endif %}

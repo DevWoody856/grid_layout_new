@@ -1,0 +1,174 @@
+.grid{
+    position: relative;
+    width: 100vw;
+    height: 100%;
+    min-height: 100vh;
+    overflow: auto;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows:  auto 1fr;
+    grid-template-areas:
+      'header header'
+      'sidenav main'
+}
+
+/**************
+header
+***************/
+
+.header {
+    grid-area: header;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 6rem;
+    font-size: 4rem;
+    background-color:var(--header-background-color);
+    z-index: 50;
+
+    display: grid;
+    grid-template-columns: 30vw 1fr;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.header__button {
+    padding: 1rem 1rem 1rem 2rem;
+}
+
+.header__text{
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+    border: var(--header-border-color) 2px solid;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/**************
+sidebar
+***************/
+
+.sidenav{
+    grid-area: sidenav;
+    position: fixed;
+    top: 5rem;
+    left: 0;
+    bottom:0;
+    width: 30vw;
+    height: 100%;
+    padding: 2rem;
+    transition: all 0.3s;
+    background-color:var(--sidebar-background-color);
+    overflow: auto;
+    z-index:20;
+
+}
+
+.sidenav.close{
+    left:-30vw;
+}
+
+.sidenav__title{
+    font-size: 3rem;
+    text-align: center;
+}
+
+.sidenav__item{
+    font-size: 2rem;
+    list-style-type: none;
+}
+
+/************************
+main
+************************/
+
+.main{
+    grid-area: main;
+    position: absolute;
+    width: auto;
+    height:100%;
+    top:5rem;
+    /*bottom: 0;*/
+    left:30vw;
+    /*right:0;*/
+    transition: all 0.3s;
+
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 5fr 1fr;
+    grid-template-areas:
+        'maincol'
+        'reference';
+    align-items: center;
+    justify-content: center;
+}
+
+.main.close{
+    left:0;
+}
+
+.main__text {
+    width: auto;
+    height: auto;
+    background-color: var(--main-background-color);
+    padding: 2rem;
+}
+
+.main__title{
+    font-size: 3rem;
+    text-align: center;
+}
+
+.main__content{
+    font-size: 2rem;
+}
+
+/************************
+Reference
+************************/
+
+.main__reference{
+    background-color: var(--reference-background-color);
+    padding: 2rem;
+}
+
+.main__reference__title{
+    font-size: 3rem;
+    text-align: center;
+}
+
+.main__reference__content{
+     font-size: 2rem;
+}
+
+/**************
+swipe
+***************/
+
+.swipe{
+    position: fixed;
+    width: 5vw;
+    height: 100%;
+    top: 5rem;
+    bottom:0;
+    z-index: 100;
+}
+
+.swipe.open {
+    position: fixed;
+    width: 5vw;
+    height: 100%;
+    top: 5rem;
+    left: 30vw;
+    z-index: 100;
+}

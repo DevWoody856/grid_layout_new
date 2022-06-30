@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  backend:
+    container_name: grid_220701
+    build: .
+    volumes:
+      - .:/grid_220701
+    ports:
+      - 8000:8000
+    depends_on:
+      - db_grid_220701
+
+  db_grid_220701:
+    container_name: db_grid_220701
+    image: postgres
+    restart: always
+    volumes:
+      - .dbdata:/var/lib/db_grid_220701
+    ports:
+      - 5451:5432
+
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+

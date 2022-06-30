@@ -1,0 +1,160 @@
+<!doctype html>
+{% load static %}
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="shortcut icon" type="image/svg+xml" href="{% static 'icon/favicon.svg' %}"/>
+    <script defer src="https://unpkg.com/alpinejs@3.7.1/dist/cdn.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/custom-style-base.css' %}">
+
+    {% if request.user_agent.is_pc %}
+        <link rel="stylesheet" href="{% static 'css/custom-style-pc.css' %}">
+    {% endif %}
+
+    {% if request.user_agent.is_mobile and 'iPad' not in request.user_agent.device %}
+        <link rel="stylesheet" href="{% static 'css/custom-style-sp.css' %}">
+    {% endif %}
+
+    {% if request.user_agent.is_tablet %}
+        <link rel="stylesheet" href="{% static 'css/custom-style-tablet.css' %}">
+    {% endif %}
+
+    <title>{% block title %}Grid Layout{% endblock %}</title>
+</head>
+
+<body>
+{% if request.user_agent.is_mobile and 'iPad' not in request.user_agent.device %}
+    <section class="grid"
+             x-data="{
+                    open:false,
+                    close:true,
+                    header_text:false,
+                }"
+             @toggle.window="
+                    open = !open;
+                    close = !close
+                "
+             @my-event.window="
+                header_text = !header_text
+                open = !open;
+                close = !close
+                "
+    >
+{% endif %}
+{% if request.user_agent.is_pc %}
+    <section class="grid"
+             x-data="{
+                    open:true,
+                    close:true,
+                    header_text:true
+                    }"
+             @toggle.window="
+                    open = !open;
+                    close = !close;
+                    "
+             @resize.window="
+                if(window.innerWidth < 767){
+                    open = false;
+                    close = false;
+                    header_text = false;
+                }else{
+                    open = true;
+                    close = true;
+                    header_text = true;
+                }
+                "
+             x-init="
+                    sidebar_init = window.innerWidth < 767;
+                    if(sidebar_init){
+                       open = false;
+                        close = false;
+                        header_text = false;
+                    }
+                "
+    >
+{% endif %}
+{% if request.user_agent.is_tablet %}
+    <section class="grid"
+             x-data="{
+            open:true,
+            close:false,
+            header_text:false
+        }"
+             @toggle.window="
+            open = !open;
+            close = !close
+        "
+             @my-event.window="
+                header_text = !header_text
+                open = !open;
+                close = !close
+                "
+    >
+{% endif %}
+{% block content %}{% endblock %}
+</section>
+</body>
+</html>
+
+<script>
+{% if request.user_agent.is_mobile %}
+
+$(".sidebar__link").click(function(e) {
+  e.preventDefault();
+  const href = $(this).attr('href');
+
+  const sidenav = $('#sidenav').hasClass('open')
+  const main = $('#main').hasClass('open')
+  if(sidenav && main){
+      $('#sidenav, #main').removeClass('open')
+      setTimeout(()=>{window.location.href = href},300);
+  }
+});
+
+{% endif %}
+
+{% if request.user_agent.is_pc %}
+
+$(".sidebar__link").click(function(e) {
+    const windowSize = $( window ).width();
+    if(windowSize <  767) {
+        e.preventDefault();
+        const href = $(this).attr('href');
+
+        const sidenav = $('#sidenav').hasClass('open')
+        const main = $('#main').hasClass('open')
+        if (sidenav && main) {
+            $('#sidenav, #main').removeClass('open')
+            setTimeout(() => {
+                window.location.href = href
+            }, 300);
+         }
+    }
+ });
+
+{% endif %}
+</script>
+
+<script>
+    let myElement = document.querySelector('#swipe');
+    let mc = new Hammer(myElement);
+    mc.get('swipe').set({threshold: 5});
+
+    mc.on('swiperight', function (e) {
+        console.log('swiperight')
+        let event = new CustomEvent('my-event', {});
+        window.dispatchEvent(event);
+    });
+    mc.on('swipeleft', function (e) {
+        console.log('swipeleft');
+        let event = new CustomEvent('my-event', {});
+        window.dispatchEvent(event);
+    });
+</script>

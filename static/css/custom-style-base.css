@@ -1,0 +1,25 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+:root{
+    --main-font-family:'Roboto Condensed', sans-serif;
+    --main-background-color:#F5D982;
+    --header-background-color:#F29A79;
+    --sidebar-background-color:#DBAF79;
+    --reference-background-color:#E87479;
+    --header-border-color:#5C564E
+}
+
+body{
+    font-family: var(--main-font-family);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}

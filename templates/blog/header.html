@@ -1,0 +1,38 @@
+<header class="header" :class="[open ? 'open':'']">
+    {% if request.user_agent.is_pc %}
+        <div class="header__button">
+            <div id="header__text__pc"
+                 class="header__text"
+                 @click="
+                    $dispatch('toggle');
+                    header_text = !header_text;
+                "
+                 x-text="[header_text ? 'CLOSE' : 'OPEN']"
+            >CLOSE</div>
+        </div>
+    {% endif %}
+    {% if request.user_agent.is_mobile and 'iPad' not in request.user_agent.device %}
+        <div class="header__button">
+           <div id="header__text__sp"
+            class="header__text"
+            @click="
+                $dispatch('toggle');
+                header_text = !header_text;
+            "
+            >OPEN</div>
+        </div>
+    {% endif %}
+    {% if request.user_agent.is_tablet %}
+        <div class="header__button">
+            <div id="header__text__tablet"
+                 class="header__text"
+                 @click="
+                    $dispatch('toggle');
+                    header_text = !header_text;
+                "
+                 x-text="[header_text ? 'OPEN':'CLOSE']"
+            >CLOSE</div>
+        </div>
+    {% endif %}
+    <div class="header__search">HEADER</div>
+</header>

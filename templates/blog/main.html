@@ -1,0 +1,23 @@
+{% if request.user_agent.is_pc %}
+    <main id="main" class="main" :class="[open ? 'open':'', close ? '' : 'close']">
+{% endif %}
+{% if request.user_agent.is_mobile and 'iPad' not in request.user_agent.device %}
+    <main id="main" class="main" :class="[open ? 'open' : '']">
+{% endif %}
+{% if request.user_agent.is_tablet %}
+    <main id="main" class="main" :class="[close ? 'close' : '']">
+{% endif %}
+
+        <section class="main__text">
+            <div class="main__title">MAIN</div>
+            <div class="main__content">{% lorem 30 p %}</div>
+        </section>
+
+        <section class="main__reference">
+            <div class="main__reference__contents">
+               <div class="main__reference__title">Reference</div>
+                <div class="main__reference__content">{% lorem %}</div>
+            </div>
+        </section>
+
+    </main>
